@@ -23,6 +23,7 @@ function App() {
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
   const handleCardClick = (card) => setSelectedCard(card); 
 
+/*закрытие по эскейпу*/
   useEffect(() => {
     function handleEscapeKey(event) {
       if (event.code === 'Escape') {
@@ -33,6 +34,7 @@ function App() {
     return () => document.removeEventListener('keydown', handleEscapeKey)
   }, [])
 
+/* создаем все элементы страницы header,main,footer и все попапы*/
   return (
     <div className="page">
       <Header />;

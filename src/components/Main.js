@@ -8,7 +8,8 @@ function Main({onCardClick, onEditProfile, onAddPlace, onEditAvatar}) {
     const [userDescription, setUserDescription] = useState('Исследователь океана');
     const [userAvatar, setUserAvatar] = useState('#');
     const [cards, setCards] = useState([]);
-  
+   
+    /*получение данных профиля с сервера*/
     useEffect(() => {
       api.getUserInfo()
         .then((userInfoObject) => { 
@@ -20,7 +21,7 @@ function Main({onCardClick, onEditProfile, onAddPlace, onEditAvatar}) {
             console.log(`Невозможно получить информацию о пользователе ${err}`);
         });
     } )
-  
+/*получение карточек с сервера*/
     useEffect(() => {
       api.getServerCards()
         .then((cardsArray) => {
@@ -31,6 +32,7 @@ function Main({onCardClick, onEditProfile, onAddPlace, onEditAvatar}) {
         })
     }, [])
   
+    /*создание карточек из полученного массива*/
     const elements = cards.map((card) => {
       return <Card
                 onCardClick = {onCardClick}
@@ -38,7 +40,7 @@ function Main({onCardClick, onEditProfile, onAddPlace, onEditAvatar}) {
                 key = {card._id}
              />
     })
-
+    /*возвращаем секцию профиля и секцию карточек*/
     return (
         <main className="content">
             <section className="profile">
