@@ -2,7 +2,6 @@ import React from "react";
 
 function ImagePopup({ card, onClose }) {
     return (
-        // <div className={card ? 'popup_opened popup popup_image' : 'popup popup_image'}>
         <div className={`popup ${card && 'popup_opened'}`}>
             <div className="popup__image-container">
                 <button onClick={onClose} type="button" className="popup__button-close_image popup__button-close">

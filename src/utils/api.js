@@ -34,7 +34,7 @@ class Api {
         headers: this._headers,
         body: JSON.stringify({
           name: data.name,
-          about: data.job,
+          about: data.about,
         })
       })
         .then((response) => this._handleResponse(response));
@@ -88,12 +88,11 @@ class Api {
         .then((response) => this._handleResponse(response));
     }
   }
-/* созадем экземпляр API класса*/
-const api = new Api({
-    address: 'https://mesto.nomoreparties.co/v1/cohort-35',
+/* созадем и экспортируем экземпляр API класса*/
+  export const api = new Api({
+    address: "https://mesto.nomoreparties.co/v1/cohort-35",
     headers: {
-      authorization: '59fa2368-57bc-421b-8a9b-bec049dce68e',
-      'Content-Type': 'application/json'
-    }
+      authorization: "59fa2368-57bc-421b-8a9b-bec049dce68e",
+      "Content-Type": "application/json",
+    },
   });
-  export default api;

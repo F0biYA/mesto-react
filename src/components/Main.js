@@ -1,59 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import api from '../utils/api.js';
+import React, { useContext } from 'react';
 import Card from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main({ onCardClick, onEditProfile, onAddPlace, onEditAvatar }) {
+function Main({ cards, onCardClick, onCardLike, onCardDelete, onEditProfile, onAddPlace, onEditAvatar }) {
+    /*подписываюсь  и получаю значение контекста*/
+    const currentUser = useContext(CurrentUserContext);
 
-    const [userName, setUserName] = useState('Жак-Ив Кусто');
-    const [userDescription, setUserDescription] = useState('Исследователь океана');
-    const [userAvatar, setUserAvatar] = useState('#');
-    const [cards, setCards] = useState([]);
-
-    /*получение данных профиля с сервера*/
-    useEffect(() => {
-        api.getUserInfo()
-            .then((userInfoObject) => {
-                setUserName(userInfoObject.name);
-                setUserDescription(userInfoObject.about);
-                setUserAvatar(userInfoObject.avatar);
-            })
-            .catch((err) => {
-                console.log(`Невозможно получить информацию о пользователе ${err}`);
-            }, []);
-    })
-    /*получение карточек с сервера*/
-    useEffect(() => {
-        api.getServerCards()
-            .then((cardsArray) => {
-                setCards(cardsArray);
-            })
-            .catch((err) => {
-                console.log(`Невозможно отобразить карточки с сервера ${err}`);
-            })
-    }, [])
-
-    /*создание карточек из полученного массива
-    const elements = cards.map((card) => {
-        return <Card
-            onCardClick={onCardClick}
-            card={card}
-            key={card._id}
-        />
-    })*/
-    
-    /*возвращаем секцию профиля и секцию карточек*/
     return (
         <main className="content">
             <section className="profile">
                 <div className="profile__block">
                     <div className="profile__image-block">
-                        <img onClick={onEditAvatar} className="profile__image" src={userAvatar} alt="Фото Профиля" />
+                        <img onClick={onEditAvatar} className="profile__image" src={currentUser.avatar} alt="Фото Профиля" />
                     </div>
                     <div className="profile__info">
-                        <h1 className="profile__title">{userName}</h1>
+                        <h1 className="profile__title">{currentUser.name}</h1>
                         <button onClick={onEditProfile} type="button" className="profile__button-edit">
                         </button>
-                        <p className="profile__job">{userDescription}</p>
+                        <p className="profile__job">{currentUser.about}</p>
                     </div>
                     <button onClick={onAddPlace} type="button" className="profile__button-add">
                     </button>
@@ -65,6 +29,8 @@ function Main({ onCardClick, onEditProfile, onAddPlace, onEditAvatar }) {
                         onCardClick={onCardClick}
                         card={card}
                         key={card._id}
+                        onCardLike={onCardLike}
+                        onCardDelete={onCardDelete}
                     />)
                 })
             }
