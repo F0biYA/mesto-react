@@ -53,16 +53,7 @@ function App() {
       });
   }, [])
 
-  /*закрытие по эскейпу*/
-  useEffect(() => {
-    function handleEscapeKey(event) {
-      if (event.code === 'Escape') {
-        closeAllPopups();
-      }
-    }
-    document.addEventListener('keydown', handleEscapeKey)
-    return () => document.removeEventListener('keydown', handleEscapeKey)
-  }, [])
+
   /*функция изменения данных в профиле*/
   function handleUpdateUser(data) {
     console.log(data);
